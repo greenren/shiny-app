@@ -9,4 +9,4 @@ It contains the source code for:
 - server.R
 - ui.R
 
-The application can be viewed <here>[https://greenren.shinyapps.io/shiny-app/].
+The application can be viewed [here](https://greenren.shinyapps.io/shiny-app/).
