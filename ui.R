@@ -11,7 +11,18 @@ shinyUI(pageWithSidebar(
         p("But first you can guess the average waiting time on the right, by minimizing the Mean Sqaured Error."),
         
         h3('Waiting Time'),
-        p("")
+        p("When we plot the waiting time against the eruption time, 
+          you can see that there's a relation between how long an eruption
+          took and how long it takes for the next eruption (the waiting time)."),
+        p("In the plot on the right you can change how long the eruption time took 
+          and it will then give an estimate about how long the waiting time on the next eruption will be."),
+        p("As you can also see in the plot, however, the prediction isn't perfect. 
+          There's a lot of variation around the prediction line. 
+          Therefore, it is better to calculate a confidence interval to provide better estimatations."),
+        p("Below you can enter the time the eruption took and it will calculate a waiting time interval (in minutes).  
+          With a confidence of 95% the estimated waiting time will be in this interval."),
+        numericInput('eruptconf', 'The eruption time in minutes:', 4, min=0, max=6, step=0.25)
+        
     ),
     
     mainPanel(
@@ -21,6 +32,9 @@ shinyUI(pageWithSidebar(
         
         h3('How long should you wait for the next eruption?'),
         sliderInput('erupttime', 'The previous eruption took how many minutes?', value=3.5, min=1.5, max=5.2, step=0.01),
-        plotOutput('scatter')
+        plotOutput('scatter'),
+        
+        h4('Waiting time confidence interval'),
+        textOutput("confpred")
     )
 ))

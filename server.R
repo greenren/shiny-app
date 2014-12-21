@@ -1,5 +1,6 @@
 library(shiny)
-data(faitful)
+library(datasets)
+data(faithful)
 shinyServer(
     function(input, output) {  
         output$newHist <- renderPlot ({
@@ -20,9 +21,15 @@ shinyServer(
             points(erupttime, waittime, col='red', pch=8)
             text(1.95, 90, paste("Eruption time = ", round(erupttime, 2)))
             text(1.9, 85, paste("Estimated waiting\ntime = ", round(waittime, 2)))
+        })        
+        output$confpred <- renderText({
+            eruptconf <- input$eruptconf
+            fit <- lm(waiting ~ eruptions, data=faithful)
+            fitpred <- predict(fit, data.frame(eruptions=c(eruptconf)), interval='confidence')
+            predlwr <- round(fitpred[2], 2)
+            predupr <- round(fitpred[3], 2)
+            txt <- paste("If the previous eruption took ", eruptconf, " minutues. Then the next eruption of Old Faithful will probably be between ", predlwr, " and ", predupr, " minutes (with 95% confidence).")
+            txt
         })
     }
 )
-
-
-#predict(fit, data.frame(eruptions=c(3)), interval='confidence')
