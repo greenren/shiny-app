@@ -21,7 +21,10 @@ shinyUI(pageWithSidebar(
           Therefore, it is better to calculate a confidence interval to provide better estimatations."),
         p("Below you can enter the time the eruption took and it will calculate a waiting time interval (in minutes).  
           With a confidence of 95% the estimated waiting time will be in this interval."),
-        numericInput('eruptconf', 'The eruption time in minutes:', 4, min=0, max=6, step=0.25)
+        
+        h4('Waiting time confidence interval'),
+        numericInput('eruptconf', 'The eruption time in minutes:', 4, min=0, max=6, step=0.25),
+        textOutput("confpred")
         
     ),
     
@@ -32,9 +35,6 @@ shinyUI(pageWithSidebar(
         
         h3('How long should you wait for the next eruption?'),
         sliderInput('erupttime', 'The previous eruption took how many minutes?', value=3.5, min=1.5, max=5.2, step=0.01),
-        plotOutput('scatter'),
-        
-        h4('Waiting time confidence interval'),
-        textOutput("confpred")
+        plotOutput('scatter')
     )
 ))
